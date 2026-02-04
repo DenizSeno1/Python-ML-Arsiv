@@ -5,9 +5,9 @@
 ║  🎯 AMAÇ: Tek sebep → Tek sonuç (Düz çizgi ilişkisi)         ║
 ║  📥 GİRDİ: X_train, y_train (Bellekten)                      ║
 ║  📤 ÇIKTI: y_pred (Tahminler), R² skoru, Grafik              ║
-║  ⏱️  NE ZAMAN KULLAN:                                         ║
-║     • Tek bir bağımsız değişken varsa                        ║
-║     • İlişki düz çizgi gibi görünüyorsa                      ║
+║  ⏱️  NE ZAMAN KULLAN:                                        ║
+║     • Tek bir bağımsız değişken varsa                         ║
+║     • İlişki düz çizgi gibi görünüyorsa                       ║
 ║  📊 ÖRNEK: Reklam Harcaması → Satış Miktarı                  ║
 ╚══════════════════════════════════════════════════════════════╝
 
