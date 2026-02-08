@@ -20,6 +20,13 @@ Veriyi temizleme, dönüştürme ve analize hazır hale getirme adımları.
 ### 2. Makine Öğrenmesi Modelleri
 Şu ana kadar uygulanan ve şablon haline getirilen algoritmalar:
 
+#### 🧹 Yardımcı Araçlar
+| Araç | Dosya | Açıklama |
+|------|-------|----------|
+| Veri Ön İşleme | `utils/Veri_On_Isleme.ipynb` | Veri temizleme ve hazırlama |
+| Backward Elimination | `utils/Backward_Elimination.ipynb` | P-value ile gereksiz değişken eleme |
+| Görselleştirme | `utils/Matplotlib_Sablonlari.ipynb` | 7 farklı grafik şablonu |
+
 #### 📈 Regresyon (Tahmin) Modelleri
 | Model | Dosya | Açıklama |
 |-------|-------|----------|
@@ -30,12 +37,6 @@ Veriyi temizleme, dönüştürme ve analize hazır hale getirme adımları.
 | Decision Tree | `templates/regression/Decision_Tree_Regression.ipynb` | Karar ağacı regresyonu |
 | Random Forest | `templates/regression/Random_Forest_Regression.ipynb` | Topluluk öğrenmesi (En güçlü!) |
 
-#### 🧹 Yardımcı Araçlar
-| Araç | Dosya | Açıklama |
-|------|-------|----------|
-| Backward Elimination | `utils/Backward_Elimination.ipynb` | P-value ile gereksiz değişken eleme |
-| Görselleştirme | `utils/Matplotlib_Sablonlari.ipynb` | 7 farklı grafik şablonu |
-| Veri Ön İşleme | `utils/Veri_On_Isleme.ipynb` | Veri temizleme ve hazırlama |
 
 #### 🤖 Sınıflandırma (Classification) Modelleri
 | Model | Dosya | Açıklama |
