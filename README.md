@@ -15,7 +15,7 @@ Veriyi temizleme, dönüştürme ve analize hazır hale getirme adımları.
 - **Scaling:** Verileri standartlaştırma (StandardScaler).
 - **Splitting:** Veri setini Eğitim (Train) ve Test setlerine ayırma.
 
-📄 **Şablon:** `Veri_On_Isleme.py`
+📄 **Şablon:** `utils/Veri_On_Isleme.ipynb`
 
 ### 2. Makine Öğrenmesi Modelleri
 Şu ana kadar uygulanan ve şablon haline getirilen algoritmalar:
@@ -23,43 +23,48 @@ Veriyi temizleme, dönüştürme ve analize hazır hale getirme adımları.
 #### 📈 Regresyon (Tahmin) Modelleri
 | Model | Dosya | Açıklama |
 |-------|-------|----------|
-| Simple Linear | `Simple_Linear.py` | Tek değişkenli doğrusal regresyon |
-| Multiple Linear | `Multiple_Linear.py` | Çoklu değişkenli regresyon + OLS raporu |
-| Polynomial | `Polinomial.py` | Kıvrımlı ilişkiler için polinom regresyon |
-| SVR | `SVR.py` | Support Vector Regression |
-| Decision Tree | `Decision_Tree.py` | Karar ağacı regresyonu |
-| Random Forest | `Random_Forest.py` | Topluluk öğrenmesi (En güçlü!) |
+| Simple Linear | `templates/regression/Simple_Linear.ipynb` | Tek değişkenli doğrusal regresyon |
+| Multiple Linear | `templates/regression/Multiple_Linear.ipynb` | Çoklu değişkenli regresyon + OLS raporu |
+| Polynomial | `templates/regression/Polynomial_Regression.ipynb` | Kıvrımlı ilişkiler için polinom regresyon |
+| SVR | `templates/regression/SVR.ipynb` | Support Vector Regression |
+| Decision Tree | `templates/regression/Decision_Tree_Regression.ipynb` | Karar ağacı regresyonu |
+| Random Forest | `templates/regression/Random_Forest_Regression.ipynb` | Topluluk öğrenmesi (En güçlü!) |
 
 #### 🧹 Yardımcı Araçlar
 | Araç | Dosya | Açıklama |
 |------|-------|----------|
-| Backward Elimination | `Backward_Elimination.py` | P-value ile gereksiz değişken eleme |
-| Görselleştirme | `Matplotlib_Sablonlari.py` | 7 farklı grafik şablonu |
+| Backward Elimination | `utils/Backward_Elimination.ipynb` | P-value ile gereksiz değişken eleme |
+| Görselleştirme | `utils/Matplotlib_Sablonlari.ipynb` | 7 farklı grafik şablonu |
+| Veri Ön İşleme | `utils/Veri_On_Isleme.ipynb` | Veri temizleme ve hazırlama |
 
 #### 🤖 Sınıflandırma (Classification) Modelleri
-*(Yakında eklenecek: Logistic Regression, KNN, SVM, XGBoost...)*
+| Model | Dosya | Açıklama |
+|-------|-------|----------|
+| Logistic Regression | `templates/classification/Logistic_Regression.ipynb` | Lojistik Regresyon |
+| KNN | `templates/classification/KNN.ipynb` | K-En Yakın Komşu |
+| SVM | `templates/classification/SVM.ipynb` | Destek Vektör Makineleri |
+| Naive Bayes | `templates/classification/Gaussian_NB.ipynb` | Naive Bayes |
+| Random Forest | `templates/classification/Random_Forest_Classifier.ipynb` | Random Forest Sınıflandırıcı |
 
 ---
 
 ## 🚀 Nasıl Kullanılır?
 
-```python
-# 1. Veriyi hazırla (HER ZAMAN İLK ADIM)
-%run Veri_On_Isleme.py
+Tüm şablonlar **Jupyter Notebook (.ipynb)** formatına dönüştürülmüştür.
 
-# 2. İstediğin modeli çalıştır
-%run Random_Forest.py
+1. **Önce Veri Ön İşlemeyi Çalıştırın:**
+   `utils/Veri_On_Isleme.ipynb` dosyasını açın ve hücreleri sırasıyla çalıştırın. Bu, verinizi temizleyip belleğe (`X_train`, `y_train` olarak) yükleyecektir.
 
-# 3. Sonuçları gör: R² skoru + Grafik
-```
+2. **Bir Model Seçin:**
+   Örneğin `templates/regression/Random_Forest_Regression.ipynb` dosyasını açın.
 
-### Şablonları Kendi Projene Uyarlama:
-1. **Şablon Seç:** İhtiyacın olan konunun `.py` dosyasını aç.
-2. **Kopyala:** Kodu kendi çalışma dosyana yapıştır.
-3. **Düzenle:**
-   - `pd.read_csv("veriler.csv")` kısmını kendi veri setine göre güncelle.
-   - Sütun indekslerini (`iloc[:, 1:4]`) verine uygun hale getir.
-4. **Çalıştır:** Modelini eğit ve sonuçları gözlemle!
+3. **Çalıştırın:**
+   Veriler zaten bellekte olduğu için (veya notebook içinde `%run` ile çağırıldığı için) doğrudan model eğitilecek ve sonuçlar görünecektir.
+
+### Kendi Projene Uyarlama:
+1. `utils/Veri_On_Isleme.ipynb` içinde `pd.read_csv("veriler.csv")` satırını kendi veri setinle değiştir.
+2. Sütun indekslerini ayarla.
+3. Sonra istediğin model notebook'unu çalıştır!
 
 ---
 
