@@ -1,124 +1,102 @@
-# 🎯 ML Şablon Kullanım Rehberi
+# 🔄 ML PROJE WORKFLOW
 
-## 📋 Hızlı Başlangıç
+## 📋 Tam Pipeline Adımları
 
-### Adım 1: Veri Hazırlığı
-```bash
-python 01_veri_on_isleme.py
 ```
-✅ Bu dosyayı çalıştır → X_train, X_test, y_train, y_test oluşur
-✅ Bellekte kalır, diğer dosyalar bunları kullanır
+1. 🔍 EDA
+   └── templates/utils/EDA_Template.ipynb
+       ├── Genel bakış (shape, dtype)
+       ├── Eksik değer analizi
+       ├── İstatistiksel özet
+       ├── Hedef değişken dağılımı
+       ├── Feature dağılımları
+       ├── Korelasyon matrisi
+       └── Outlier tespiti (IQR)
 
----
+2. 🩹 EKSİK DEĞER
+   └── templates/preprocessing/Handling_Missing_Values.ipynb
+       ├── >%60 eksik → sil
+       ├── %20-60 → KNNImputer
+       └── <%20 → median/mod
 
-### Adım 2: Model Seçimi
+3. 🏷️ ENCODING
+   └── templates/preprocessing/Encoding.ipynb
+       ├── Binary → LabelEncoder
+       ├── Nominal (≤10) → One-Hot
+       ├── Ordinal → OrdinalEncoder
+       └── Yüksek cardinality → Target Encoding
 
-#### 🔹 Doğrusal İlişkiler İçin
-```bash
-# Tek değişken → Basit düz çizgi
-python 02_regression/simple_linear.py
+4. 🏗️ FEATURE ENGINEERING (opsiyonel)
+   └── templates/preprocessing/Feature_Engineering.ipynb
+       ├── Log/sqrt/kare dönüşümleri
+       ├── Etkileşim özellikleri
+       ├── Zaman özellikleri
+       └── Binning/gruplama
 
-# Çok değişken → Çok boyutlu düzlem
-python 02_regression/multiple_linear.py
-```
+5. ⚖️ SCALING
+   └── templates/preprocessing/Scaling.ipynb
+       ├── StandardScaler → normal dağılım
+       ├── MinMaxScaler → neural network
+       └── RobustScaler → outlier çok
+       ⚠️ KURAL: fit sadece X_train!
 
-#### 🔹 Kıvrımlı İlişkiler İçin
-```bash
-# Polinom (x², x³ gibi)
-python 02_regression/polynomial.py
+6. 🏆 FEATURE IMPORTANCE (opsiyonel)
+   └── templates/preprocessing/Feature_Importance.ipynb
+       ├── MDI (tree-based)
+       ├── Permutation Importance
+       └── SHAP (opsiyonel)
 
-# Karmaşık kıvrımlar
-python 02_regression/svr.py
-```
+7. 🤖 MODEL EĞİTİMİ
+   └── templates/classification/ veya regression/
+       ├── Random Forest → güçlü başlangıç
+       ├── XGBoost / LightGBM → fine-tune
+       └── Voting_Ensemble → modelleri birleştir
 
-#### 🔹 Ağaç Tabanlı Modeller
-```bash
-# Tek ağaç (basamaklı)
-python 02_regression/decision_tree.py
-
-# Çok ağaç (daha hassas)
-python 02_regression/random_forest.py
-```
-
----
-
-### Adım 3: İyileştirme (Opsiyonel)
-
-#### Gereksiz Değişkenleri Temizle
-```bash
-python utils/backward_elimination.py
-```
-✅ Sadece Multiple Linear Regression'dan SONRA kullan
-✅ Hangi sütunların gereksiz olduğunu gösterir
-
----
-
-## 🧭 Hangi Modeli Ne Zaman Kullanmalıyım?
-
-| Durum | Model | Örnek |
-|-------|-------|-------|
-| Tek sebep → Tek sonuç (düz çizgi) | Simple Linear | Reklam bütçesi → Satış |
-| Çok sebep → Tek sonuç (düz düzlem) | Multiple Linear | Yaş+Boy+Kilo → Sağlık skoru |
-| İlişki kıvrımlı ama yumuşak | Polynomial | Sıcaklık → Dondurma satışı |
-| İlişki çok karmaşık ve kıvrımlı | SVR | Borsa tahmini |
-| Veri basamaklı/kategorik | Decision Tree | Maaş aralıklarına göre |
-| En hassas sonuç istiyorum | Random Forest | Ev fiyat tahmini |
-
----
-
-## 🔄 Tam İş Akışı Örneği
-
-```python
-# 1️⃣ VERİYİ HAZIRLA
-%run 01_veri_on_isleme.py
-# → X_train, X_test, y_train, y_test bellekte
-
-# 2️⃣ BASİT MODEL DENE
-%run 02_regression/simple_linear.py
-# → R² = 0.65 (Kötü değil ama daha iyisi var mı?)
-
-# 3️⃣ POLİNOM DENE
-%run 02_regression/polynomial.py
-# → R² = 0.92 (Çok daha iyi!)
-
-# 4️⃣ RANDOM FOREST İLE KONTROL ET
-%run 02_regression/random_forest.py
-# → R² = 0.95 (En iyisi bu!)
-
-# 5️⃣ GEREKSIZ DEĞİŞKENLERİ TEMİZLE
-%run utils/backward_elimination.py
-# → "Yaş" sütunu gereksizmiş, çıkar
+8. 📊 DEĞERLENDİRME
+   └── templates/evaluation/
+       ├── Cross_Validation.ipynb    → güvenilir skor
+       ├── ROC_AUC.ipynb             → eşik analizi
+       ├── Classification_Report.ipynb → P/R/F1
+       └── Confusion_Matrix.ipynb    → hata analizi
 ```
 
 ---
 
-## ⚠️ Önemli Notlar
+## ⚠️ Kritik Kurallar
 
-### Sıralama ZORUNLU
-1. **İLK:** `01_veri_on_isleme.py` (Mutlaka!)
-2. **SONRA:** İstediğin model
-3. **OPSİYONEL:** Backward Elimination (Sadece Multiple Linear için)
+1. **Train/Test sızıntısı önle:**
+   - Scaler/Encoder/Imputer → sadece X_train'de `fit_transform`
+   - X_test'e sadece `transform`
+   - Feature Engineering → train'de hesapla, test'e uygula
 
-### Dosyalar Arası Bağlantı
-- Tüm modeller **aynı Jupyter Notebook'ta** veya **aynı Python session'ında** çalışmalı
-- Çünkü `X_train, y_train` gibi değişkenler **bellekte paylaşılıyor**
+2. **Sıra önemli:**
+   EDA → Eksik Değer → Encoding → Engineering → Scaling → Model → Evaluation
 
-### Hızlı Test
-```python
-# Bellekteki verileri kontrol et
-print(X_train.shape)  # (satır, sütun) görmeli
-print(y_train.shape)  # (satır,) görmeli
+3. **Model seçimi:**
+   - Az veri, hızlı deney → `Random Forest`
+   - Yarışma / maksimum skor → `XGBoost` veya `LightGBM`
+   - Son hamle → `Voting_Ensemble`
+
+---
+
+## 🎯 Karar Ağacı
+
+```
+Veri geldi!
+  │
+  ├─ Hedef sayısal mı?  → regression/
+  ├─ Hedef kategorik mi? → classification/
+  └─ Etiket yok mu?     → clustering/
+
+Model seç:
+  ├─ Hız önemli?        → LightGBM
+  ├─ Yorumlanabilirlik? → Logistic / Decision Tree
+  └─ Maksimum skor?     → XGBoost + Voting Ensemble
+
+Değerlendir:
+  ├─ Sınıf dengeli?     → Accuracy + Confusion Matrix
+  └─ Sınıf dengesiz?   → ROC-AUC + F1 (macro)
 ```
 
 ---
-
-## 📝 Kendi Projene Uyarlama
-
-1. `01_veri_on_isleme.py` dosyasını aç
-2. `pd.read_csv("veriler.csv")` → Kendi CSV'ni yaz
-3. `iloc[:, 1:4]` → Kendi sütun numaralarını ayarla
-4. Çalıştır ve akışa devam et!
-
----
-
-**🎓 İpucu:** Her model dosyasının başında "NE ZAMAN KULLAN" açıklaması var. Oradan da bakabilirsin!
+**💪 Pipeline'ı takip et, sonuçlar gelir!**

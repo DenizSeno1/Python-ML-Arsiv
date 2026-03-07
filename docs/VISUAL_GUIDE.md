@@ -1,148 +1,97 @@
 # 🎯 ML ŞABLON KULLANIM AKIŞI
 
+## 📊 Tam ML Pipeline
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     BAŞLANGIČ NOKTASI                       │
-│                  01_veri_on_isleme.py                       │
+│                 BAŞLANGIÇ: VERİ KEŞFİ                       │
+│            templates/utils/EDA_Template.ipynb               │
 │                                                             │
-│  📥 CSV Dosyası → 🔧 Temizle → 📊 Böl → 📈 Ölçekle         │
-│                                                             │
-│  ÇIKTI: X_train, X_test, y_train, y_test                   │
+│  📥 CSV → 📊 Genel Bakış → 🩹 Eksik → 📈 Dağılım → 🔗 Korelasyon │
 └─────────────────────────────────────────────────────────────┘
-                            ↓
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                    MODEL SEČİMİ                             │
+│                  VERİ ÖN İŞLEME                             │
+│              templates/preprocessing/                       │
+│                                                             │
+│  🩹 Handling_Missing_Values → 🏷️ Encoding → ⚖️ Scaling      │
+│  🏗️ Feature_Engineering → 🏆 Feature_Importance            │
 └─────────────────────────────────────────────────────────────┘
                             ↓
-          ┌─────────────────┼─────────────────┐
-          ↓                 ↓                 ↓
-    ┌──────────┐      ┌──────────┐      ┌──────────┐
-    │  BASIT   │      │   ORTA   │      │  GÜČLÜ   │
-    └──────────┘      └──────────┘      └──────────┘
-          ↓                 ↓                 ↓
-          │                 │                 │
-    Simple Linear    Polynomial          Random Forest
-          │                │                 │
-          │          Decision Tree          SVR
-          │                │                 │
-          │         Multiple Linear          │
-          │                │                 │
-          ↓                ↓                 ↓
-    ┌──────────────────────────────────────────┐
-    │         📊 SONUČ + GRAFİK                │
-    │                                          │
-    │  🎯 R² Skoru                             │
-    │  📈 Görselleštirme                       │
-    │  📋 Tahmin vs Gerçek                     │
-    └──────────────────────────────────────────┘
-                      ↓
-                      ↓
-            ┌─────────────────┐
-            │   R² < 0.7 ?    │
-            └─────────────────┘
-               ↓           ↓
-            EVET          HAYIR
-               ↓           ↓
-    ┌──────────────┐   ┌────────────┐
-    │ Başka Model  │   │  TAMAMDIR! │
-    │    Dene      │   │  Kullan!   │
-    └──────────────┘   └────────────┘
-          ↓
-          │
-   utils/backward_elimination.py
-          │ (Sadece Multiple Linear için)
-          ↓
-   Gereksiz değiškenleri temizle
-          ↓
-   Tekrar čalıštır → R² Artar! 🎉
+         ┌──────────────────┼──────────────────┐
+         ↓                  ↓                  ↓
+┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+│ SINIFLANDIRMA│   │  REGRESYON   │   │  KÜMELEME    │
+│classification│   │  regression/ │   │  clustering/ │
+└──────────────┘   └──────────────┘   └──────────────┘
+         ↓
+  ┌─────────────────────────────────┐
+  │  Random Forest / XGBoost /      │
+  │  LightGBM / Logistic / SVM ...  │
+  └─────────────────────────────────┘
+         ↓
+  ┌──────────────────┐
+  │  Voting Ensemble │  ← Modelleri birleştir!
+  └──────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                    DEĞERLENDİRME                            │
+│               templates/evaluation/                        │
+│                                                             │
+│  📋 Classification_Report                                  │
+│  🟥 Confusion_Matrix                                        │
+│  📈 ROC_AUC                                                 │
+│  🔄 Cross_Validation                                        │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 📊 MODEL SEČİM TABLOSU
+## 🗂️ Notebook Kataloğu
 
-| Özellik | Simple | Multiple | Polynomial | SVR | Decision | Random |
-|---------|--------|----------|------------|-----|----------|--------|
-| Hız | ⚡⚡⚡ | ⚡⚡⚡ | ⚡⚡ | ⚡ | ⚡⚡ | ⚡ |
-| Hassasiyet | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| Kullanım | 🟢 | 🟢 | 🟡 | 🔴 | 🟢 | 🟢 |
-| Değišken | Tek | Čok | Tek/Čok | Tek/Čok | Tek/Čok | Tek/Čok |
+### 📁 classification/
+| Notebook | Açıklama | Ne zaman? |
+|----------|----------|-----------|
+| `Random_Forest_Classifier` | Güçlü, versatile | Default başlangıç |
+| `XGBoost` | Gradient boosting | Tablo veri, yarışmalar |
+| `LightGBM` | Hızlı XGBoost | Büyük veri |
+| `Logistic_Regression` | Yorumlanabilir | Proba gerekince |
+| `SVM_Classifier` | Yüksek boyut | Az veri, metin |
+| `Decision_Tree` | Görsel | Açıklanabilirlik |
+| `Voting_Ensemble` | Model birleştirme | Skor artırmak |
 
----
+### 📁 evaluation/
+| Notebook | Açıklama |
+|----------|----------|
+| `Cross_Validation` | k-fold ile güvenilir ölçüm |
+| `ROC_AUC` | Eşik analizi, dengesiz veri |
+| `Classification_Report` | Precision/Recall/F1 |
+| `Confusion_Matrix` | TP/TN/FP/FN görselleştirme |
 
-## 🚀 ÖRNEK KULLANIM
+### 📁 preprocessing/
+| Notebook | Açıklama |
+|----------|----------|
+| `Handling_Missing_Values` | NaN analiz + doldurma |
+| `Encoding` | Label/OHE/Ordinal/Target |
+| `Scaling` | Standard/MinMax/Robust |
+| `Feature_Engineering` | Yeni özellik türetme |
+| `Feature_Importance` | MDI + Permutation |
 
-### Başlangıč (Her Proje İčin Zorunlu)
-```python
-%run 01_veri_on_isleme.py
-```
-
-### Model Seči ve Čalıštır
-```python
-# Basit dene
-%run 02_regression/simple_linear.py      # R² = 0.65
-
-# Daha iyisini dene
-%run 02_regression/polynomial.py         # R² = 0.85
-
-# En iyisini dene
-%run 02_regression/random_forest.py      # R² = 0.94 ✅
-```
-
-### İyileštirme (Opsiyonel)
-```python
-# Sadece Multiple Linear kullandıysan
-%run utils/backward_elimination.py
-# → Gereksiz sütunları gösterir
-# → 01_veri_on_isleme.py'yi düzenle
-# → Tekrar čalıštır
-```
+### 📁 utils/
+| Notebook | Açıklama |
+|----------|----------|
+| `EDA_Template` | 8 adımlı sistematik keşif |
 
 ---
 
-## 💡 KARAR AĞACI
+## 🔄 Model Seçim Tablosu
 
-```
-Başla
-  │
-  ├─ Tek değišken mi?
-  │   └─ EVET → simple_linear.py
-  │
-  ├─ Čok değišken mi?
-  │   └─ EVET → multiple_linear.py
-  │              │
-  │              └─ R² düšük mü?
-  │                  └─ EVET → backward_elimination.py
-  │
-  ├─ Kıvrımlı iliški mi?
-  │   └─ EVET → polynomial.py veya svr.py
-  │
-  └─ En iyi sonuč mu istiyorsun?
-      └─ EVET → random_forest.py ⭐
-```
+| Özellik | RF | XGB | LGB | LR | SVM |
+|---------|----|----|-----|----|-----|
+| Hız | ⚡⚡ | ⚡⚡ | ⚡⚡⚡ | ⚡⚡⚡ | ⚡ |
+| Hassasiyet | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| Yorumlanabilirlik | 🟡 | 🔴 | 🔴 | 🟢 | 🔴 |
+| Büyük Veri | 🟡 | 🟡 | 🟢 | 🟢 | 🔴 |
 
 ---
-
-## 🔄 İTERATİF SÜREČ
-
-```
-1. Veriyi hazırla
-    ↓
-2. Basit model dene (Simple Linear)
-    ↓
-3. Sonuca bak (R²)
-    ↓
-    ├─ İyi mi? (R² > 0.9)
-    │   └─ EVET → Bitir! ✅
-    │
-    └─ Kötü mü? (R² < 0.9)
-        └─ EVET → Daha karmaşık model dene
-                   (Polynomial → Random Forest)
-        ↓
-        Tekrar 3'e dön
-```
-
----
-
-**💪 GÜČLÜ YAPIYI KULLA, ZAMANINDAN KAZAN!**
+**💪 Doğru araçla doğru işi yap!**
