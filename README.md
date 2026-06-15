@@ -1,9 +1,5 @@
 # 🚀 Python Makine Öğrenmesi (ML) Arşivi
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Kaggle](https://img.shields.io/badge/Kaggle-Grandmaster%20Path-20BEFF.svg?logo=kaggle)
-
 Bu depo, uçtan uca makine öğrenmesi projeleri geliştirmek ve Kaggle yarışmalarında üst sıralara çıkmak için özenle hazırlanmış, kopyala-yapıştır yapısına uygun **modüler şablonlar** içerir. Eski, karmaşık ve tek parça notebook'lar yerine, modern veri bilimi süreçlerine uygun **adım adım** bir mimari üzerine kurulmuştur.
 
 ## 📂 Klasör Mimarisi
